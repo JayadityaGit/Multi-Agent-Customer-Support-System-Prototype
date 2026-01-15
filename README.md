@@ -1,3 +1,6 @@
+![RoughDesign](https://github.com/user-attachments/assets/476e5e70-3e27-43f5-8ff7-1746c33bb6c5)
+
+
 # Multi-Agent Customer Support System Prototype
 
 This project is a **Customer Support Routing Service** powered by the **Gemini API** (via Google Generative AI). It intelligently routes user queries to specialized sub-agents based on the detected intent.
