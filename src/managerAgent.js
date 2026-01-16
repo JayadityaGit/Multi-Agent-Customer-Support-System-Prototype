@@ -7,6 +7,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import  billingAgent  from './subAgents/billingAgent.js'
 import  orderAgent  from './subAgents/orderAgent.js'
 import  qaAgent  from './subAgents/qaAgent.js'
+import { readMemory, writeMemory } from './utils/memoryUtils.js'
 
 const app = new Hono()
 
@@ -20,6 +21,8 @@ app.post('/api/chat', async c => {
   try {
     const { message } = await c.req.json()
 
+    const memory = await readMemory('managerAgent');
+
     const result = await generateText({
      
       model: google('gemini-2.5-flash'), 
@@ -31,10 +34,14 @@ app.post('/api/chat', async c => {
         If multiple agents are needed, list them separated by commas.
         Example output: order, billing
         Do not add any other text.
+
+        Past Conversation Context:
+        ${memory}
       `,
       prompt: message
     })
 
+    await writeMemory('managerAgent', message, result.text);
   
     const agents = result.text.split(',').map(agent => agent.trim().toLowerCase())
 

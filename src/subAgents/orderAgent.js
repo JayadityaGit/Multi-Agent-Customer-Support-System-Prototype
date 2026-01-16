@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { readMemory, writeMemory } from '../utils/memoryUtils.js'
 
 // 1. Setup the Google Provider
 const google = createGoogleGenerativeAI({
@@ -10,6 +11,8 @@ const google = createGoogleGenerativeAI({
 // 2. The Main Function
 export async function orderAgent(userMessage) {
   try {
+    const memory = await readMemory('orderAgent');
+
     const result = await generateText({
       model: google('gemini-2.5-flash-lite'),
       system: `
@@ -24,9 +27,14 @@ export async function orderAgent(userMessage) {
         Tone: Helpful, efficient, and logistics-focused.
         
         If the user asks about anything other then order related queries, politely decline and say you can only help with order-related queries.
+
+        Past Conversations:
+        ${memory}
       `,
       prompt: userMessage
     })
+
+    await writeMemory('orderAgent', userMessage, result.text);
 
     return result.text;
 

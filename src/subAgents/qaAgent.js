@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
-
+import { readMemory, writeMemory } from '../utils/memoryUtils.js'
 
 
 const google = createGoogleGenerativeAI({
@@ -10,6 +10,8 @@ const google = createGoogleGenerativeAI({
 
 async function qaAgent(userMessage) {
   try {
+    const memory = await readMemory('qaAgent');
+
     const result = await generateText({
       model: google('gemini-2.5-flash-lite'),
       system: `
@@ -25,9 +27,14 @@ async function qaAgent(userMessage) {
         
         If the user has a specific account problem (like a missing refund or lost package),
         provide a general answer but advise them that the Billing or Order department might be better suited for specifics.
+
+        Past Conversations:
+        ${memory}
       `,
       prompt: userMessage
     })
+
+    await writeMemory('qaAgent', userMessage, result.text);
 
     return result.text;
 

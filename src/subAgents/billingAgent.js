@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { readMemory, writeMemory } from '../utils/memoryUtils.js'
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.AI_API_KEY
@@ -8,6 +9,8 @@ const google = createGoogleGenerativeAI({
 
 async function billingAgent(userMessage) {
   try {
+    const memory = await readMemory('billingAgent');
+
     const result = await generateText({
       model: google('gemini-2.5-flash-lite'), 
       system: `
@@ -22,9 +25,14 @@ async function billingAgent(userMessage) {
         
         If the user asks about something unrelated to billing (like shipping or technical bugs),
         you should only help with billing-related queries, NOTHING ELSE.
+
+        Past Conversations:
+        ${memory}
       `,
       prompt: userMessage
     })
+
+    await writeMemory('billingAgent', userMessage, result.text);
 
     return result.text;
 
