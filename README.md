@@ -40,6 +40,8 @@ The server will run at `http://localhost:3000`.
 
 ## Testing the API
 
+You can use this Frontend Prototype `https://github.com/JayadityaGit/-Multi-Agent-Customer-Support-System-Prototype-Frontend-?tab=readme-ov-file`
+
 We use **Postman** to test the endpoints.
 
 1. Create a new **POST** request to `http://localhost:3000/api/chat`.
