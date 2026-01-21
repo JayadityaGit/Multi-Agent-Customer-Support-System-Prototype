@@ -1,11 +1,8 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { readMemory, writeMemory } from '../utils/memoryUtils.js'
+import google from '../utils/googleUtil.js';
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.AI_API_KEY
-});
 
 async function billingAgent(userMessage) {
   try {

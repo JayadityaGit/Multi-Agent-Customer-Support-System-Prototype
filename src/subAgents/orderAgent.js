@@ -1,12 +1,8 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { readMemory, writeMemory } from '../utils/memoryUtils.js'
+import google from '../utils/googleUtil.js';
 
-// 1. Setup the Google Provider
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.AI_API_KEY
-});
 
 // 2. The Main Function
 export async function orderAgent(userMessage) {

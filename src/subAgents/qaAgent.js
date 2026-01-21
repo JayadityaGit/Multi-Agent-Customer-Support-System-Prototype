@@ -1,12 +1,10 @@
 import 'dotenv/config'
 import { generateText } from 'ai'
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import google from '../utils/googleUtil.js';
 import { readMemory, writeMemory } from '../utils/memoryUtils.js'
 
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.AI_API_KEY
-});
+
 
 async function qaAgent(userMessage) {
   try {
