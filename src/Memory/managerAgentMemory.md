@@ -1,15 +1,15 @@
 
 ---
-**Date:** 2026-01-16T11:16:18.089Z
-**User:** I canceled my order last week but I still got charged and the order still shows active in my account.
-**Agent:** order, billing
+**Date:** 2026-01-21T13:11:20.971Z
+**User:** hi
+**Agent:** 
 
 ---
-**Date:** 2026-01-16T11:18:21.362Z
-**User:** ok I am concerned about the problem about billing for now
-**Agent:** billing
-
----
-**Date:** 2026-01-16T12:38:20.064Z
-**User:** hey
+**Date:** 2026-01-21T13:11:38.051Z
+**User:** hello
 **Agent:** support
+
+---
+**Date:** 2026-01-21T13:12:47.597Z
+**User:** Users are facing issues where orders are placed successfully, but billing shows incorrect charges or payment failures due to technical errors during checkout
+**Agent:** order, billing

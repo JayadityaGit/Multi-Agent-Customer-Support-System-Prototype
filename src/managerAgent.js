@@ -2,18 +2,14 @@ import 'dotenv/config'
 import { Hono } from 'hono'
 import { serve } from '@hono/node-server'
 import { generateText } from 'ai'
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
-
 import  billingAgent  from './subAgents/billingAgent.js'
 import  orderAgent  from './subAgents/orderAgent.js'
 import  qaAgent  from './subAgents/qaAgent.js'
 import { readMemory, writeMemory } from './utils/memoryUtils.js'
+import google from './utils/googleUtil.js'
 
 const app = new Hono()
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.AI_API_KEY
-});
 
 app.get('/', c => c.text('Welcome to the Customer Support Routing Service!'))
 
